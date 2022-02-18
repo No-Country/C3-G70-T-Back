@@ -1,5 +1,5 @@
 import expressAsyncHandler from 'express-async-handler';
-import { genSaltSync, hashSync } from "bcrypt";
+import bcrypt from "bcryptjs";
 import db from '../mysqlConnection/mysqlConnection.js';
 import { generateToken } from '../util/util.js';
 
@@ -23,8 +23,8 @@ export const register = expressAsyncHandler(async (req, res) => {
 
 
         //using bcrypt to encrypt the password
-        const salt = genSaltSync();
-        const passwd = hashSync(password, salt);
+        const salt = bcrypt.genSaltSync();
+        const passwd = bcrypt.hashSync(password, salt);
 
         const sqlMakeUser = `INSERT INTO users ( username,password, email, nickname) VALUES ( '${username}',  '${passwd}', '${email}','${nickname}')`;
         user = await db.query(sqlMakeUser);
@@ -46,12 +46,11 @@ export const register = expressAsyncHandler(async (req, res) => {
 
 });
 
-export const login = async (req, res = response) => {
+export const login = async (req, res) => {
     const { email, password } = req.body;
     try {
       const exist = `SELECT * FROM users WHERE email = '${email}'`;
       let user = await db.query(exist);
-      console.log(user);
   
       if (user?.length === 0) {
         return res.status(400).json({
@@ -59,8 +58,10 @@ export const login = async (req, res = response) => {
           msg: "User not exist with email",
         });
       }
+
+
   
-      const {idDB, usernameDB, email:emailDB, password:passwordDB } = user[0];
+      const {id:idDB, username:usernameDB, email:emailDB, password:passwordDB } = user[0];
       // password confirm
       const validPassword = bcrypt.compareSync(password, passwordDB);
       if (!validPassword) {
@@ -74,9 +75,9 @@ export const login = async (req, res = response) => {
 
       res.json({
         ok: true,
-        idDB,
-        usernameDB,
-        emailDB,
+        id: idDB,
+        username: usernameDB,
+        emial: emailDB,
         token
       });
     } catch (error) {

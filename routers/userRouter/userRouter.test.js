@@ -44,13 +44,7 @@ describe('POST/users', () => {
                 .send(userLogin)
                 .expect(200)
 
-            expect(response.body).toContain({
-                ok: true,
-                id,
-                username,
-                email,
-                token
-              })
+            expect(response.body.ok).toBe(true)
             console.log( response.body);
 
         })
@@ -59,16 +53,13 @@ describe('POST/users', () => {
 
     describe('process fails', () => {
 
-        // test('User already exists', async () => {
-        //     const response = await api.post('/api/users/register')
-        //         .send(newUser)
-        //         .expect(400)
+        test('User already exists', async () => {
+            const response = await api.post('/api/users/register')
+                .send(newUser)
+                .expect(400)
 
-        //     // expect(response.body).toContain({
-        //     //     ok: false,
-        //     //     msg: "An error has arisen in the process, please review",
-        //     // })
-        // })
+            expect(response.body.ok).toBe(false)
+        })
 
     })
 

@@ -15,6 +15,6 @@ export const newUser = {
 // user login
 export const userLogin = {
   email: "prueba@gmail.com",
-  password: "123456789",
+  password: "123456789"
 };
 

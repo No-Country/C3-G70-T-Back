@@ -1,11 +1,10 @@
-### Login POST http://localhost:8000/api/users/login Content-Type: application/json
+### register POST http://localhost:8000/api/users/login Content-Type: application/json
 
 
 
 POST http://localhost:8000/api/users/register 
-
 Content-Type: application/json
- 
+
 {
   "username": "prueba",
   "email": "prueba@gmail.com",
@@ -13,11 +12,15 @@ Content-Type: application/json
   "nickname": "prueba"
 }
 
-POST http://localhost:8000/api/users/login 
 
+
+### Login POST http://localhost:8000/api/users/login Content-Type: application/json
+
+
+POST http://localhost:8000/api/users/login 
 Content-Type: application/json
 
 {
   "email": "prueba@gmail.com",
-  "password": "123456789",
+  "password": "123456789"
 }
