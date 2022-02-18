@@ -1,7 +1,7 @@
 
 export const database = {
-    host: "localhost",
-    user: "root",
-    password: "InGamerG70",
-    database: "ingamer_db"
+    host: "bivim428kmjpmk1c4kx6-mysql.services.clever-cloud.com",
+    user: "uoopnyznm3gia5cx",
+    password: "qfrV4CVOM9hL9A9C4y8s",
+    database: "bivim428kmjpmk1c4kx6"
 };
