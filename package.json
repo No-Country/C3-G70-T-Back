@@ -1,11 +1,12 @@
 {
   "name": "c3g70back",
+  "type": "module",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node  backend/server",
-    "server": "nodemon  server/index.js",
-    "dev": "npm start",
+    "start": "node --experimental-modules backend/server",
+    "server": "nodemon --experimental-modules server/index.js",
+    "dev": "npm server",
     "test": "set NODE_OPTIONS=--experimental-vm-modules && jest --verbose --detectOpenHandles ",
     "test:watch": "npm run test -- --watch"
   },

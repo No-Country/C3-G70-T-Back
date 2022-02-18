@@ -1,26 +1,28 @@
-const express  = require('express');
-const morgan = require('morgan')
-const cors = ('cors');
-const bodyParser = require("body-parser");
+import express, { urlencoded, json } from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
 
-const dotenv = require('dotenv');
+import pkg from 'body-parser';
+const { json: _json, urlencoded: _urlencoded } = pkg;
+
+import { config } from 'dotenv';
 
 
-const userRouter = require('../routers/userRouter');
+import userRouter from '../routers/userRouter/index.js';
 
 // 3306
 
-dotenv.config();
+config();
 
 //initializations
 const app = express();
-app.use(express.urlencoded({extended: true }));
-app.use(express.json());
-// app.use(cors());
+app.use(urlencoded({extended: true }));
+app.use(json());
+app.use(cors());
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false})); 
+app.use(_json());
+app.use(_urlencoded({extended: false})); 
 
 
 //MySQL Connection
@@ -54,4 +56,4 @@ app.use((err, req, res, next)=>{
 });
 
 
-module.exports =  app
+export default  app

@@ -1,11 +1,11 @@
-const mysql = require('mysql');
-const { promisify } = require('util');
+import { createPool } from 'mysql';
+import { promisify } from 'util';
 
-const { database } = require('./keys');
+import { database } from './keys.js';
 
 
 // Connect to the mysqlDB.
-const pool = mysql.createPool(database);
+const pool = createPool(database);
 
 pool.getConnection((err, connection) => {
   if (err) {
@@ -29,4 +29,4 @@ pool.getConnection((err, connection) => {
 // Promisify Pool Querys
 pool.query = promisify(pool.query);
 
-module.exports = pool;
+export default pool;

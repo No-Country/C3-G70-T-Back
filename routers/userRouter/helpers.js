@@ -1,22 +1,20 @@
-const supertest = require('supertest');
-const app = require('../../server/app');
+import supertest from 'supertest';
+import app from '../../server/app';
 
-const api = supertest(app);
+export const api = supertest(app);
 
-
-
-
-const newUser = {
+//user register
+export const newUser = {
   username: "prueba",
   email: "prueba@gmail.com",
   password: "123456789",
   nickname: "prueba"
-
 };
 
 
-
-module.exports  = {
-  api,
-  newUser
+// user login
+export const userLogin = {
+  email: "prueba@gmail.com",
+  password: "123456789",
 };
+

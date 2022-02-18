@@ -1,16 +1,19 @@
 //UserRouter
 
-const express = require('express');
-const { register, getUsers } = require('../../controllers/user.controller');
-const userRouter = express.Router();
+import { Router } from 'express';
+import { register, getUsers, login } from '../../controllers/user.controller.js';
+const userRouter = Router();
 
 
 
 // register router
 userRouter.post('/register', register );
 
+// login
+userRouter.post('/login', login );
 
+// users router
 userRouter.get('/', getUsers );
 
 
-module.exports = userRouter;
+export default userRouter;

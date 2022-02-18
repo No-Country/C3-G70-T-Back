@@ -1,10 +1,7 @@
-const supertest = require('supertest');
-const app = require('../server/app');
+import supertest from 'supertest';
+import app from '../server/app';
 
-const api = supertest(app);
+export const api = supertest(app);
 
 
 
-module.exports  = {
-  api
-};

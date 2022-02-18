@@ -1,4 +1,4 @@
-const app = require("./app.js");
+import  app  from "./app.js";
 
 
 //PORT
@@ -9,4 +9,4 @@ const server = app.listen(PORT,() =>{
     console.log(`Servidor funcionando en el puerto ${PORT}`);
 })
 
-module.exports = server
+export default server
