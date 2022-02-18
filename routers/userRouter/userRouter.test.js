@@ -51,17 +51,17 @@ describe('POST/users', () => {
 
     })
 
-    describe('process fails', () => {
+    // describe('process fails', () => {
 
-        test('User already exists', async () => {
-            const response = await api.post('/api/users/register')
-                .send(newUser)
-                .expect(400)
+    //     test('User already exists', async () => {
+    //         const response = await api.post('/api/users/register')
+    //             .send(newUser)
+    //             .expect(400)
 
-            expect(response.body.ok).toBe(false)
-        })
+    //         expect(response.body.ok).toBe(false)
+    //     })
 
-    })
+    // })
 
 })
 
