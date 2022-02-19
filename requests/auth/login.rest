@@ -1,4 +1,4 @@
-### register POST http://localhost:8000/api/users/login Content-Type: application/json
+### register POST http://localhost:8000/api/users/register Content-Type: application/json
 
 
 
@@ -24,3 +24,29 @@ Content-Type: application/json
   "email": "prueba@gmail.com",
   "password": "123456789"
 }
+
+
+
+### host remoto
+
+### Login POST https://api-ingamer.herokuapp.com/api/users/register Content-Type: application/json
+
+POST https://api-ingamer.herokuapp.com/api/users/register 
+Content-Type: application/json
+
+{
+  "username": "prueba2",
+  "email": "prueba2@gmail.com",
+  "password": "123456789",
+  "nickname": "prueba2"
+}
+
+### Login POST https://api-ingamer.herokuapp.com/api/users/login Content-Type: application/json
+POST https://api-ingamer.herokuapp.com/api/users/login 
+Content-Type: application/json
+
+{
+  "email": "prueba2@gmail.com",
+  "password": "123456789"
+}
+

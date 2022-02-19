@@ -17,7 +17,7 @@ export const register = expressAsyncHandler(async (req, res) => {
         if (user.length > 0) {
             return res.status(400).json({
                 ok: false,
-                msg: "User already exists",
+                msg: "User already exists"
             });
         }
 
@@ -31,14 +31,15 @@ export const register = expressAsyncHandler(async (req, res) => {
 
         // status code 201  if all goes well, return ok: true
         res.status(201).json({
-            ok: true
+            ok: true,
+            msg: "Registered user"
         });
 
     } catch (error) {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: "An error has arisen in the process, please review",
+            msg: "An error has arisen in the process, please review"
         });
     }
 
@@ -55,7 +56,7 @@ export const login = async (req, res) => {
       if (user?.length === 0) {
         return res.status(400).json({
           ok: false,
-          msg: "User not exist with email",
+          msg: "User not exist with email"
         });
       }
 
@@ -67,7 +68,7 @@ export const login = async (req, res) => {
       if (!validPassword) {
         return res.status(400).json({
           ok: false,
-          msg: "Invalid password",
+          msg: "Invalid password"
         });
       }
       // Generate JWT
@@ -84,7 +85,7 @@ export const login = async (req, res) => {
       console.log(error);
       res.status(500).json({
         ok: false,
-        msg: "An error has arisen in the process, please review",
+        msg: "An error has arisen in the process, please review"
       });
     }
   };
