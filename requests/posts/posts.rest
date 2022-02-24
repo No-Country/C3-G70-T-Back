@@ -1,0 +1,22 @@
+
+### posts POST http://localhost:8000/api/posts Content-Type: application/json
+
+
+
+POST http://localhost:8000/api/posts
+Content-Type: application/json
+
+{
+    "userid": "3",
+    "title": "Mira mi ultima jugada",
+    "description": "Estaba jugando con @juanito y de repente se me aparecio esto:",
+    "image": "https://picsum.photos/id/1/200/300",
+    "likes": 654
+}
+
+
+### posts GET http://localhost:8000/api/posts Content-Type: application/json
+
+
+
+GET http://localhost:8000/api/posts

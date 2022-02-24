@@ -1,7 +1,16 @@
 //UserRouter
 
 import { Router } from 'express';
-import { register, getUsers, login, getUserToId, deleteUser, editUser, updateUser } from '../../controllers/user.controller.js';
+import { 
+    register, 
+    getUsers, 
+    login, 
+    getUserToId, 
+    deleteUser, 
+    editUser, 
+    updateUser 
+} from '../../controllers/user.controller.js';
+import { isAuth } from '../../util/util.js';
 
 const userRouter = Router();
 
@@ -19,8 +28,6 @@ userRouter.get('/', getUsers );
 // get user/id router
 userRouter.get('/:id', getUserToId );
 
-// delete user router
-userRouter.delete('/delete/:id', deleteUser );
 
 //update user router
 userRouter.put('/profile', updateUser );
@@ -28,6 +35,8 @@ userRouter.put('/profile', updateUser );
 //edit user router
 userRouter.put('/edit/:id', editUser );
 
+// delete user router
+userRouter.delete('/delete/:id', deleteUser );
 
 
 export default userRouter;

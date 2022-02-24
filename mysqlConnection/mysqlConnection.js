@@ -1,7 +1,13 @@
 import { createPool } from 'mysql';
 import { promisify } from 'util';
 
-import { database } from './keys.js';
+import { databaseProduction, databaseTest } from './keys.js';
+
+const { NODE_ENV } = process.env
+
+const database =  NODE_ENV === 'test'
+? databaseTest
+: databaseProduction
 
 
 // Connect to the mysqlDB.

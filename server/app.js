@@ -9,6 +9,7 @@ import { config } from 'dotenv';
 
 
 import userRouter from '../routers/userRouter/index.js';
+import postRouter from '../routers/postRouter/index.js';
 
 // 3306
 
@@ -36,6 +37,9 @@ app.use(morgan('dev'));
 
 //users
 app.use('/api/users', userRouter);
+
+//posts
+app.use('/api/posts', postRouter);
 
 
 

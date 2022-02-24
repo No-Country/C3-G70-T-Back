@@ -1,3 +1,19 @@
+### users GET http://localhost:8000/api/users Content-Type: application/json
+
+
+
+GET http://localhost:8000/api/users
+
+
+
+### users/id GET http://localhost:8000/api/users/:id Content-Type: application/json
+
+
+
+GET http://localhost:8000/api/users/7
+
+
+
 ### register POST http://localhost:8000/api/users/register Content-Type: application/json
 
 
@@ -25,6 +41,44 @@ Content-Type: application/json
   "password": "123456789"
 }
 
+### edit profile put http://localhost:8000/api/users/profile Content-Type: application/json
+
+
+
+PUT http://localhost:8000/api/users/profile 
+Content-Type: application/json
+# Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InBydWViYSIsInVzZXJuYW1lIjoicHJ1ZWJhIiwiZW1haWwiOiJwcnVlYmFAZ21haWwuY29tIiwiaWF0IjoxNjQ1NTQxODkyLCJleHAiOjE2NDgxMzM4OTJ9.9IKB2VQWTSThpOKIrwFAFkS-k_g83sKQlwGg0ijICfo`
+
+{
+  "id": "7",
+  "username": "update prueba",
+  "email": "updateprueba@gmail.com",
+  "password": "938472829",
+  "nickname": " updateprueba"
+}
+
+
+### edit user put http://localhost:8000/api/users/profile Content-Type: application/json
+
+PUT http://localhost:8000/api/users/edit/7
+Content-Type: application/json
+# Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InBydWViYSIsInVzZXJuYW1lIjoicHJ1ZWJhIiwiZW1haWwiOiJwcnVlYmFAZ21haWwuY29tIiwiaWF0IjoxNjQ1NTQxODkyLCJleHAiOjE2NDgxMzM4OTJ9.9IKB2VQWTSThpOKIrwFAFkS-k_g83sKQlwGg0ijICfo`
+
+{
+  "id": "7",
+  "username": "update prueba",
+  "email": "updateprueba@gmail.com",
+  "password": "938472829",
+  "nickname": " updateprueba"
+}
+
+
+
+###  DELETE http://localhost:8000/api/users/delete/:id 
+
+
+
+DELETE http://localhost:8000/api/users/delete/6
 
 
 ### host remoto

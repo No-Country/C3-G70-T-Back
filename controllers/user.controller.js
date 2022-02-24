@@ -11,8 +11,8 @@ export const register = expressAsyncHandler(async (req, res) => {
 
   try {
     //check if the user already exists
-    const sqlMakeUser = `SELECT * FROM users WHERE email = '${email}' || username = '${username}'`;
-    let user = await db.query(sqlMakeUser);
+    const sqlMakeUser_select = `SELECT * FROM users WHERE email = '${email}' || username = '${username}'`;
+    let user = await db.query(sqlMakeUser_select);
     console.log(user);
     if (user.length > 0) {
       return res.status(400).json({
@@ -26,13 +26,13 @@ export const register = expressAsyncHandler(async (req, res) => {
     const salt = bcrypt.genSaltSync();
     const passwd = bcrypt.hashSync(password, salt);
 
-    const sqlMakeUser = `INSERT INTO users ( username,password, email, nickname) VALUES ( '${username}',  '${passwd}', '${email}','${nickname}')`;
-    user = await db.query(sqlMakeUser);
+    const sqlMakeUser_into = `INSERT INTO users ( username,password, email, nickname) VALUES ( '${username}',  '${passwd}', '${email}','${nickname}')`;
+    user = await db.query(sqlMakeUser_into);
 
     // status code 201  if all goes well, return ok: true
     res.status(201).json({
       ok: true,
-      msg: "Registered user"
+      msg: "User registered "
     });
 
   } catch (error) {
@@ -58,7 +58,7 @@ export const login = expressAsyncHandler(async (req, res) => {
     if (user?.length === 0) {
       return res.status(400).json({
         ok: false,
-        msg: "User not exist with email"
+        msg: "User not exist with this email"
       });
     }
 
@@ -99,10 +99,17 @@ export const deleteUser = expressAsyncHandler(async (req, res) => {
   try {
 
     const { id } = req.params;
-    const sqlMakeUser = `'DELETE FROM users WHERE id = ${id}'`
-    const user = await db.query(sqlMakeUser);
+
+    // select query
+    const sqlMakeUser_select = `SELECT * FROM users WHERE id = '${id}'`;
+    const user = await db.query(sqlMakeUser_select);
+
+
+    // delete query
+    const sqlMakeUser_delete = `DELETE FROM users WHERE id = '${id}'`
     console.log(user);
     if (user[0]) {
+      await db.query(sqlMakeUser_delete);
       res.status(201).json({
         ok: true,
         msg: "User removed successfully"
@@ -125,18 +132,55 @@ export const deleteUser = expressAsyncHandler(async (req, res) => {
 
 //updtae profile
 export const updateUser = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params;
-  const { title, description, url } = req.body;
-  const newUser = {
-    title,
-    description,
-    url
-  };
-  await pool.query('UPDATE users set ? WHERE id = ?', [newUser, id]);
-  res.status(201).json({
-    ok: true,
-    msg: "User updated successfully"
-  });
+  // data from require body
+  const { id, username, password, email, nickname } = req.body;
+
+  try {
+
+    // query to mysql DB 
+    const sqlMakeUser = `SELECT * FROM users WHERE id = '${id}'`
+    const user = await db.query(sqlMakeUser);
+
+    // data from mysql DB
+    const { username: usernameDB, password: passwordDB, email: emailDB, nickname: nicknameDB } = user[0];
+
+    let newPassword = null
+    if (user[0]) {
+      if (password) {
+        const salt = bcrypt.genSaltSync();
+        newPassword = bcrypt.hashSync(password, salt);
+      }
+      const updatedUsertoDB = {
+        username: username || usernameDB,
+        email: email || emailDB,
+        nickname: nickname || nicknameDB,
+        password: newPassword || passwordDB,
+      }
+      await db.query('UPDATE users set ? WHERE id = ?', [updatedUsertoDB, id]);
+      res.status(201).json({
+        ok: true,
+        msg: "User updated successfully",
+        updatedUser: {
+          username: username || usernameDB,
+          email: email || emailDB,
+          nickname: nickname || nicknameDB,
+          token: generateToken(updatedUsertoDB)
+
+        }
+      });
+    } else {
+      res.status(404).json({
+        ok: false,
+        msg: "User not found"
+      });
+    };
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "An error has arisen in the process, please review"
+    });
+  }
 });
 
 
@@ -145,43 +189,44 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
 export const editUser = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
-    
-    
+
+
     // query to mysql DB 
-    const sqlMakeUser = `'SELECT * FROM users WHERE id = ${id}'`
+    const sqlMakeUser = `SELECT * FROM users WHERE id = '${id}'`
     const user = await db.query(sqlMakeUser);
-    
-  // data from mysql DB
-  const { username: usernameDB, email: emailDB,  nickname: nicknameDB } = user[0];
 
-  // data from require body
-  const { username, email, nickname } = req.body;
+    // data from mysql DB
+    const { username: usernameDB, email: emailDB, nickname: nicknameDB } = user[0];
 
-  if (user[0]) {
-    newUser = {
-      username: username || usernameDB,
-      email: email || emailDB,
-      nickname: nickname || nicknameDB
-    }
-    
-    await db.query('UPDATE users set ? WHERE id = ?', [newUser, id]);
-    res.status(201).json({
-      ok: true,
-      msg: "User updated successfully"
-    });
-  }else{
-    res.status(404).json({
+    // data from require body
+    const { username, email, nickname } = req.body;
+
+
+    if (user[0]) {
+      const updatedUsertoDB = {
+        username: username || usernameDB,
+        email: email || emailDB,
+        nickname: nickname || nicknameDB
+      }
+
+      await db.query('UPDATE users set ? WHERE id = ?', [updatedUsertoDB, id]);
+      res.status(201).json({
+        ok: true,
+        msg: "User updated successfully"
+      });
+    } else {
+      res.status(404).json({
+        ok: false,
+        msg: "User not found"
+      });
+    };
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
       ok: false,
-      msg: "User not found"
+      msg: "An error has arisen in the process, please review"
     });
-  };
-} catch (error) {
-  console.log(error);
-  res.status(500).json({
-    ok: false,
-    msg: "An error has arisen in the process, please review"
-  });
-}
+  }
 });
 
 
@@ -190,7 +235,20 @@ export const editUser = expressAsyncHandler(async (req, res) => {
 
 //get users
 export const getUsers = expressAsyncHandler(async (req, res) => {
-  res.send('users');
+  try {
+    const sqlMakeUser = `SELECT * FROM users`
+    const user = await db.query(sqlMakeUser);
+
+    console.log(user);
+    res.status(200).send(user);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "An error has arisen in the process, please review"
+    });
+  }
 })
 
 //get to id user
@@ -198,21 +256,33 @@ export const getUserToId = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
 
   try {
-    const sqlMakeUser = `'SELECT * FROM users WHERE id = ${id}'`
+    const sqlMakeUser = `SELECT * FROM users WHERE id = '${id}'`
     const user = await db.query(sqlMakeUser);
-
-    const { id: idDB, username: usernameDB, email: emailDB, nickname: nicknameDB } = user[0];
-
-    console.log(user);
-    res.status(201).json({
+    console.log(user[0]);
+    if(user[0]){
+      
+      const { id: idDB, username: usernameDB, email: emailDB, nickname: nicknameDB } = user[0];
+      
+      res.status(200).json({
       ok: true,
       id: idDB,
       username: usernameDB,
       emial: emailDB,
       nickname: nicknameDB
     });
+  }else{
+    res.status(404).json({
+      ok: false,
+      msg: "User not found"
+    });
+  }
+    
 
   } catch (error) {
-
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "An error has arisen in the process, please review"
+    });
   }
 });
