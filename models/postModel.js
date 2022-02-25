@@ -1,7 +1,7 @@
 const post  = {
     id: 1,
     user: {
-      name: "John Doe",
+      username: "John Doe",
       avatar: "https://randomuser.me/api/portraits/med/men/8.jpg",
     },
     title: "Mira mi ultima jugada",

@@ -20,3 +20,35 @@ Content-Type: application/json
 
 
 GET http://localhost:8000/api/posts
+
+
+### post to id GET http://localhost:8000/api/posts Content-Type: application/json
+
+
+
+GET http://localhost:8000/api/posts/2
+
+
+### all user posts to id GET http://localhost:8000/api/posts Content-Type: application/json
+
+
+
+GET http://localhost:8000/api/posts/userPosts/3
+
+
+
+### edit user put http://localhost:8000/api/users/profile Content-Type: application/json
+
+PUT http://localhost:8000/api/posts/edit/2
+Content-Type: application/json
+
+{
+    "title": "update title",
+    "description": "update description"
+}
+
+### post  DELETE http://localhost:8000/api/users/delete/:id 
+
+
+
+DELETE http://localhost:8000/api/posts/delete/5

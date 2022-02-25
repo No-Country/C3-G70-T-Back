@@ -117,7 +117,7 @@ export const deleteUser = expressAsyncHandler(async (req, res) => {
     } else {
       res.status(404).json({
         ok: false,
-        msg: "User not found"
+        msg: "User not exist"
       });
     }
   } catch (error) {
@@ -154,7 +154,7 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
         username: username || usernameDB,
         email: email || emailDB,
         nickname: nickname || nicknameDB,
-        password: newPassword || passwordDB,
+        password: newPassword || passwordDB
       }
       await db.query('UPDATE users set ? WHERE id = ?', [updatedUsertoDB, id]);
       res.status(201).json({
