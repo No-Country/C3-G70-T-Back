@@ -1,6 +1,8 @@
 import express, { urlencoded, json } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import path from 'path';
+
 
 import pkg from 'body-parser';
 const { json: _json, urlencoded: _urlencoded } = pkg;
@@ -10,6 +12,7 @@ import { config } from 'dotenv';
 
 import userRouter from '../routers/userRouter/index.js';
 import postRouter from '../routers/postRouter/index.js';
+import uploadRouter from '../routers/uploadRouter/index.js';
 
 // 3306
 
@@ -47,8 +50,12 @@ app.use('/api/posts', postRouter);
 // app.use('/api/emails', emailRouter);
 
 
+//uploads
+app.use('/api/uploads', uploadRouter);
 
 
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
 app.get('/', (req,res)=>{
     res.send('Server ready');
