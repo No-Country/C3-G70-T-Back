@@ -30,13 +30,13 @@ userRouter.get('/:id', getUserToId );
 
 
 //update user router
-userRouter.put('/profile', updateUser );
+userRouter.put('/profile', isAuth, updateUser );
 
 //edit user router
-userRouter.put('/edit/:id', editUser );
+userRouter.put('/edit/:id', isAuth, editUser );
 
 // delete user router
-userRouter.delete('/delete/:id', deleteUser );
+userRouter.delete('/delete/:id', isAuth, deleteUser );
 
 
 export default userRouter;

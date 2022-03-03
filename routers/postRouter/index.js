@@ -19,27 +19,27 @@ const postRouter = Router();
 
 
 // post posts router
-postRouter.post('/', createPost);
+postRouter.post('/',isAuth, createPost);
 
 // get posts router
-postRouter.get('/', getPosts);
+postRouter.get('/',isAuth, getPosts);
 
 
 // get Post/id router
-postRouter.get('/:id', getPostToId );
+postRouter.get('/:id',isAuth, getPostToId );
 
 // get Post/id router
-postRouter.get('/userPosts/:userid', getAllPostToUserId );
+postRouter.get('/userPosts/:userid',isAuth, getAllPostToUserId );
 
 //edit Post router
-postRouter.put('/edit/:id', editPost );
+postRouter.put('/edit/:id',isAuth, editPost );
 
 //update likes Post router
-postRouter.put('/likes/:id', likesPost );
+postRouter.put('/likes/:id',isAuth, likesPost );
 
 
 // delete Post router
-postRouter.delete('/delete/:id', deletePost );
+postRouter.delete('/delete/:id',isAuth, deletePost );
 
 
 export default postRouter;
