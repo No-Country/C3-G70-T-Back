@@ -65,7 +65,6 @@ Content-Type: application/json
 # Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InBydWViYSIsInVzZXJuYW1lIjoicHJ1ZWJhIiwiZW1haWwiOiJwcnVlYmFAZ21haWwuY29tIiwiaWF0IjoxNjQ1NTQxODkyLCJleHAiOjE2NDgxMzM4OTJ9.9IKB2VQWTSThpOKIrwFAFkS-k_g83sKQlwGg0ijICfo`
 
 {
-  "id": "7",
   "username": "update prueba",
   "email": "updateprueba@gmail.com",
   "password": "938472829",

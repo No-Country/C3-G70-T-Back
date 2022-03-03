@@ -7,7 +7,7 @@
     "start": "node --experimental-modules backend/server",
     "server": "nodemon --experimental-modules server/index.js",
     "dev": "npm server",
-    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest --verbose --detectOpenHandles routers/postRouter",
+    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest --verbose --detectOpenHandles ",
     "test:watch": "npm run test -- --watchAll"
   },
   "dependencies": {

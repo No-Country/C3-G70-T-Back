@@ -16,7 +16,7 @@ export const createPost = expressAsyncHandler(async (req, res) => {
         // status code 201  if all goes well, return ok: true
         res.status(201).json({
             ok: true,
-            msg: "Post created "
+            msg: "Post created"
         });
 
     } catch (error) {
@@ -55,6 +55,7 @@ export const getPosts = expressAsyncHandler(async (req, res) => {
     }
 })
 
+//get post to id
 export const getPostToId = expressAsyncHandler(async (req, res) => {
     const { id } = req.params;
 

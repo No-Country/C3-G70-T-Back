@@ -1,11 +1,14 @@
-import { api,  uploadFileHandler } from './helpers';
-import image from '../../images/check.jpg'
+import { api } from './helpers';
+import path from 'path';
+import fs from 'fs';
 
 // beforeEach(async () => {
 //     uploadFileHandler(image)
 // })
 
+const __dirname = path.resolve();
 
+const testImage = `${__dirname}/images/check.jpg`
 
 describe('POST/upload', () => {
 
@@ -13,11 +16,12 @@ describe('POST/upload', () => {
 
         test('upload image', async () => {
             const response = await api.post('/api/uploads')
-                .send(uploadFileHandler(image))
+                .set('content-type', 'application/octet-stream')
+                .pipe(fs.createReadStream(testImage))
                 .expect(200)
 
-            expect(response.body).toEqual(expect.stringContaining(response.body));
-            console.log(response.body);
+            // expect(response.body).toEqual(expect.stringContaining(response.body));
+            console.log(response);
 
         })
 

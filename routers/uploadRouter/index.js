@@ -9,7 +9,7 @@ import { isAuth } from '../../util/util.js';
 const uploadRouter = express.Router();
 
 
-uploadRouter.post('/', isAuth, upload.single('imagen'), uploader);
+uploadRouter.post('/', upload.single('imagen'), uploader);
 
 
 export default uploadRouter;
