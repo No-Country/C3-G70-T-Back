@@ -103,3 +103,11 @@ Content-Type: application/json
   "password": "123456789"
 }
 
+
+### users GET https://api-ingamer.herokuapp.com/api/users Content-Type: application/json
+
+
+
+GET https://api-ingamer.herokuapp.com/api/users
+
+

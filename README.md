@@ -398,9 +398,9 @@ ejemplo
 
 #Data:
 
-#Users object
+#Posts object
 
-Estos objetos contienen una variedad de información referente a los usuarios registrados
+Estos objetos contienen una variedad de información referente a los posts publicados
 
 Propiedad Ejemplo
 
