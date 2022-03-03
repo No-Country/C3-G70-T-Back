@@ -456,17 +456,25 @@ Authorization: `Bearer ${token}`
 .catch(error => console.error('Error:', error))
 .then(response => console.log('Success:', response));
 
+Respuesta exitosa (200 OK)
+
+
 {
-"id": 1,
-"userid": 3,
-"username": "prueba",
-"avatar": null,
-"title": "title",
-"description": "description",
-"image": "https://picsum.photos/id/1/200/300",
-"posted": "2022-02-25T22:07:43.000Z",
-"likes": 654
-},
+  "ok": true,
+  "post": {
+    "id": 2,
+    "userid": 3,
+    "user": {
+      "username": "prueba2",
+      "avatar": null
+    },
+    "title": "update title",
+    "description": "update description",
+    "image": "https://picsum.photos/id/1/200/300",
+    "posted": "2022-02-25T22:07:43.000Z",
+    "likes": 654
+  }
+}
 
 #POSTS/USERPOSTS/ID ENDPOINT
 
