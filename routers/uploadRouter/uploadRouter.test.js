@@ -16,7 +16,7 @@ describe('POST/upload', () => {
 
         test('upload image', async () => {
             const response = await api.post('/api/uploads')
-                .set('content-type', 'application/octet-stream')
+                .set('Content-Type': 'multipart/form-data')
                 .pipe(fs.createReadStream(testImage))
                 .expect(200)
 

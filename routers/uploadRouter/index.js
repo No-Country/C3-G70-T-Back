@@ -1,5 +1,5 @@
 import express from 'express';
-import { upload, uploader } from '../../controllers/upload.controller.js';
+import { uploadAvatar, uploadBackgroundImage, uploaderAvatar, uploaderBackgroundImage } from '../../controllers/upload.controller.js';
 import { isAuth } from '../../util/util.js';
 
 
@@ -8,8 +8,11 @@ import { isAuth } from '../../util/util.js';
 
 const uploadRouter = express.Router();
 
+//Avatar
+uploadRouter.post('/avatar', isAuth, uploadAvatar.single('imagenAvatar'), uploaderAvatar);
 
-uploadRouter.post('/', isAuth, upload.single('imagen'), uploader);
+//BackgroundImage
+uploadRouter.post('/backgroundImage', isAuth, uploadBackgroundImage.single('imagenBackgroundImage'), uploaderBackgroundImage);
 
 
 export default uploadRouter;

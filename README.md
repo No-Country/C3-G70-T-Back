@@ -631,9 +631,13 @@ necesita un header de autorizacion con el token del usuario logueado
 
 #URL de uploads
 
+
+
+#UPLOADS/AVATAR ENDPOINT
+
 #peticion POST
 
-api-ingamer.herokuapp.com/api/uploads
+api-ingamer.herokuapp.com/api/uploads/avatar
 
 ejemplo utilizando react en el frontend:
 
@@ -649,10 +653,10 @@ const uploadFileHandler = async (e) => {
 const file = e.target.files[0];
 
     const bodyFormData = new FormData();
-    bodyFormData.append('imagen', file);
+    bodyFormData.append('imagenAvatar', file);
     setLoadingUpload(true);
     try {
-      const { data } = await Axios.post('/api/uploads', bodyFormData, {
+      const { data } = await Axios.post('/api/uploads/avatar', bodyFormData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${userInfo.token}`,
@@ -678,4 +682,61 @@ const file = e.target.files[0];
 
 Respuesta exitosa (200 OK)
 
-/uploads/182883728.jpg
+https://api-ingamer.herokuapp.com/uploads/avatar/1646405965253.jpg
+
+esta url es la que se envia en el campo de avatar para guardarla en la base de datos
+
+
+
+#UPLOADS/BACKGROUNDUMGE ENDPOINT
+
+#peticion POST
+
+api-ingamer.herokuapp.com/api/uploads/backgroundImage
+
+ejemplo utilizando react en el frontend:
+
+const [loadingUpload, setLoadingUpload] = useState(false);
+const [errorUpload, setErrorUpload] = useState('');
+
+const userSignin = useSelector((state) => state.userSignin);
+
+const { userInfo } = userSignin;
+
+// upload images local
+const uploadFileHandler = async (e) => {
+const file = e.target.files[0];
+
+    const bodyFormData = new FormData();
+    bodyFormData.append('imagenBackgroundImage', file);
+    setLoadingUpload(true);
+    try {
+      const { data } = await Axios.post('/api/uploads/backgroundImage', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      setImagen(data);
+      setLoadingUpload(false);
+    } catch (error) {
+      setErrorUpload(error.message);
+      setLoadingUpload(false);
+    }
+
+};
+
+    <label htmlFor="imagen">Imagen:</label>
+    <input
+      id="imagen"
+      type="text"
+      placeholder="Imagen"
+      value={imagen}
+      onChange={(e) => setImagen(e.target.value)}
+    ></input>
+
+Respuesta exitosa (200 OK)
+
+https://api-ingamer.herokuapp.com/uploads/backgroundImage/1646405965253.jpg
+
+esta url es la que se envia en el campo de backgroundImage para guardarla en base date
