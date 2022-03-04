@@ -740,3 +740,60 @@ Respuesta exitosa (200 OK)
 https://api-ingamer.herokuapp.com/uploads/backgroundImage/1646405965253.jpg
 
 esta url es la que se envia en el campo de backgroundImage para guardarla en base date
+
+
+
+
+
+#UPLOADS/POSTS ENDPOINT
+
+#peticion POST
+
+api-ingamer.herokuapp.com/api/uploads/posts
+
+ejemplo utilizando react en el frontend:
+
+const [loadingUpload, setLoadingUpload] = useState(false);
+const [errorUpload, setErrorUpload] = useState('');
+
+const userSignin = useSelector((state) => state.userSignin);
+
+const { userInfo } = userSignin;
+
+// upload images local
+const uploadFileHandler = async (e) => {
+const file = e.target.files[0];
+
+    const bodyFormData = new FormData();
+    bodyFormData.append('imagenPosts', file);
+    setLoadingUpload(true);
+    try {
+      const { data } = await Axios.post('/api/uploads/posts', bodyFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
+      setImagen(data);
+      setLoadingUpload(false);
+    } catch (error) {
+      setErrorUpload(error.message);
+      setLoadingUpload(false);
+    }
+
+};
+
+    <label htmlFor="imagen">Imagen:</label>
+    <input
+      id="imagen"
+      type="text"
+      placeholder="Imagen"
+      value={imagen}
+      onChange={(e) => setImagen(e.target.value)}
+    ></input>
+
+Respuesta exitosa (200 OK)
+
+https://api-ingamer.herokuapp.com/uploads/posts/1646405965253.jpg
+
+esta url es la que se envia en el campo de image en las publicaciones para guardarla en base date
