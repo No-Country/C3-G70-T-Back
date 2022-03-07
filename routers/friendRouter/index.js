@@ -6,28 +6,28 @@ import {
     deletefriend,
     getAllFriendToUserId,
     getFriendToId,
-} from '../../controllers/Friends.controller.js';
+} from '../../controllers/friends.controller.js';
 import { isAuth } from '../../util/util.js';
 
-const FriendRouter = Router();
+const friendRouter = Router();
 
 
 
 
 
 // Friend Friends router
-FriendRouter.post('/',isAuth, createFriend);
+friendRouter.post('/',isAuth, createFriend);
 
 // get Friends router
-FriendRouter.get('/friendToUserid/:id',isAuth, getAllFriendToUserId);
+friendRouter.get('/friendToUserid/:id',isAuth, getAllFriendToUserId);
 
 
 // get Friend/id router
-FriendRouter.get('/:id',isAuth, getFriendToId );
+friendRouter.get('/:id',isAuth, getFriendToId );
 
 
 // delete Friend router
-FriendRouter.delete('/delete/:id',isAuth, deletefriend );
+friendRouter.delete('/delete/:id',isAuth, deletefriend );
 
 
-export default FriendRouter;
+export default friendRouter;
