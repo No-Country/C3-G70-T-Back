@@ -13,6 +13,8 @@ import { config } from 'dotenv';
 import userRouter from '../routers/userRouter/index.js';
 import postRouter from '../routers/postRouter/index.js';
 import uploadRouter from '../routers/uploadRouter/index.js';
+import commentRouter from '../routers/commentRouter/index.js';
+import friendRouter from '../routers/friendRouter/index.js';
 
 // 3306
 
@@ -44,7 +46,11 @@ app.use('/api/users', userRouter);
 //posts
 app.use('/api/posts', postRouter);
 
+//comments
+app.use('/api/comments', commentRouter);
 
+//friends
+app.use('/api/friends', friendRouter);
 
 //emails
 // app.use('/api/emails', emailRouter);

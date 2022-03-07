@@ -1,0 +1,53 @@
+### comments POST http://localhost:8000/api/comments Content-Type: application/json
+
+
+
+POST http://localhost:8000/api/comments
+Content-Type: application/json
+Authorization: `Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InBydWViYSIsInVzZXJuYW1lIjoicHJ1ZWJhIiwiZW1haWwiOiJwcnVlYmFAZ21haWwuY29tIiwiaWF0IjoxNjQ1NTQxODkyLCJleHAiOjE2NDgxMzM4OTJ9.9IKB2VQWTSThpOKIrwFAFkS-k_g83sKQlwGg0ijICfo"`
+
+
+{
+    "postid":2,
+    "userid": 3,
+    "comment": "que genial"
+}
+
+
+### comments GET http://localhost:8000/api/comments Content-Type: application/json
+
+
+
+GET http://localhost:8000/api/comments
+
+
+### post to id GET http://localhost:8000/api/comments Content-Type: application/json
+
+
+
+GET http://localhost:8000/api/comments/2
+
+
+### all user comments to id GET http://localhost:8000/api/comments Content-Type: application/json
+
+
+
+GET http://localhost:8000/api/comments/usercomments/3
+
+
+
+### edit user put http://localhost:8000/api/users/profile Content-Type: application/json
+
+PUT http://localhost:8000/api/comments/edit/2
+Content-Type: application/json
+
+{
+    "comment": "que genial"
+
+}
+
+### post  DELETE http://localhost:8000/api/users/delete/:id 
+
+
+
+DELETE http://localhost:8000/api/comments/delete/4

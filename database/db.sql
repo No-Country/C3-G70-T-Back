@@ -28,6 +28,18 @@ CREATE TABLE IF NOT EXISTS `posts` (
 
 DESCRIBE posts;
 
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `postid` int NOT NULL,
+  `userid` int NOT NULL,
+  `comment` varchar(200) NOT NULL,
+  `posted` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `likes` int,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB AUTO_INCREMENT = 2 DEFAULT CHARSET = utf8;
+
+DESCRIBE comments;
+
 
 CREATE TABLE IF NOT EXISTS `friends` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

@@ -80,7 +80,7 @@ export const login = expressAsyncHandler(async (req, res) => {
       ok: true,
       id: idDB,
       username: usernameDB,
-      emial: emailDB,
+      email: emailDB,
       token
     });
   } catch (error) {
@@ -128,14 +128,16 @@ export const getUserToId = expressAsyncHandler(async (req, res) => {
     console.log(user[0]);
     if(user[0]){
       
-      const { id: idDB, username: usernameDB, email: emailDB, nickname: nicknameDB } = user[0];
+      const { id: idDB, username: usernameDB, email: emailDB, nickname: nicknameDB, avatar: avatarDB,backgroundImage: backgroundImageDB } = user[0];
       
       res.status(200).json({
       ok: true,
       id: idDB,
       username: usernameDB,
       emial: emailDB,
-      nickname: nicknameDB
+      nickname: nicknameDB,
+      avatar: avatarDB,
+      backgroundImage: backgroundImageDB
     });
   }else{
     res.status(404).json({
@@ -159,7 +161,7 @@ export const getUserToId = expressAsyncHandler(async (req, res) => {
 //update profile
 export const updateUser = expressAsyncHandler(async (req, res) => {
   // data from require body
-  const { id, username, password, email, nickname } = req.body;
+  const { id, username, password, email, nickname, avatar, backgroundImage } = req.body;
 
   try {
 
@@ -168,7 +170,7 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
     const user = await db.query(sqlMakeUser);
 
     // data from mysql DB
-    const { username: usernameDB, password: passwordDB, email: emailDB, nickname: nicknameDB } = user[0];
+    const { username: usernameDB, password: passwordDB, email: emailDB, nickname: nicknameDB, avatar: avatarDB,backgroundImage: backgroundImageDB } = user[0];
 
     let newPassword = null
     if (user[0]) {
@@ -180,7 +182,9 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
         username: username || usernameDB,
         email: email || emailDB,
         nickname: nickname || nicknameDB,
-        password: newPassword || passwordDB
+        password: newPassword || passwordDB,
+        avatar: avatar || avatarDB,
+        backgroundImage: backgroundImage || backgroundImageDB 
       }
       await db.query('UPDATE users set ? WHERE id = ?', [updatedUsertoDB, id]);
       res.status(201).json({

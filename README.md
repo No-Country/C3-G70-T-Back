@@ -460,20 +460,17 @@ Respuesta exitosa (200 OK)
 
 
 {
-  "ok": true,
-  "post": {
-    "id": 2,
-    "userid": 3,
-    "user": {
-      "username": "prueba2",
-      "avatar": null
-    },
-    "title": "update title",
-    "description": "update description",
-    "image": "https://picsum.photos/id/1/200/300",
-    "posted": "2022-02-25T22:07:43.000Z",
-    "likes": 654
-  }
+  "id": 2,
+  "user": {
+  "userid": 3,
+    "username": "prueba2",
+    "avatar": null
+  },
+  "title": "update title",
+  "description": "update description",
+  "image": "https://picsum.photos/id/1/200/300",
+  "posted": "2022-02-25T22:07:43.000Z",
+  "likes": 654
 }
 
 #POSTS/USERPOSTS/ID ENDPOINT

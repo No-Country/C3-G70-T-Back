@@ -1,6 +1,8 @@
 const friend  = {
     id: Number,
-    name: String,
+    userid: Number,
+    friend: Number,
+    username: String,
     nickname: String,
     avatar: String,
 }
