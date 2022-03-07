@@ -161,7 +161,7 @@ export const getUserToId = expressAsyncHandler(async (req, res) => {
 //update profile
 export const updateUser = expressAsyncHandler(async (req, res) => {
   // data from require body
-  const { id, username, password, email, nickname, avatar, backgroundImage } = req.body;
+  const { id, username, password, email, nickname, avatar,backgroundImage } = req.body;
 
   try {
 
@@ -194,6 +194,8 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
           username: username || usernameDB,
           email: email || emailDB,
           nickname: nickname || nicknameDB,
+          avatar: avatar || avatarDB,
+          backgroundImage: backgroundImage || backgroundImageDB,
           token: generateToken(updatedUsertoDB)
 
         }
