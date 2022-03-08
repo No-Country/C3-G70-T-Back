@@ -22,7 +22,7 @@ export const createFriend = expressAsyncHandler(async (req, res) => {
       });
     }
 
-    
+
     const sqlMakefriend_into = `INSERT INTO friends ( userid, friend, username, nickname, avatar) VALUES ( '${userid}', '${friend}', '${username}', '${nickname}','${avatar}')`;
     await db.query(sqlMakefriend_into);
 
@@ -53,23 +53,17 @@ export const getFriendToId = expressAsyncHandler(async (req, res) => {
     console.log(friend[0]);
     if (friend[0]) {
 
-      const { id: idDB, userid: useridDB, username: usernameDB, avatar: avatarDB, title: titleDB, description: descriptionDB, image: imageDB, friended: friendedDB, likes: likesDB } = friend[0];
+      const { id: idDB, userid: useridDB, friend: friendDB, username: usernameDB, nickname: nicknameDB, avatar: avatarDB } = friend[0];
 
       res.status(200).json({
-        ok: true,
-        friend: {
           id: idDB,
           userid: useridDB,
+          friend: friendDB,
           user: {
             username: usernameDB,
+            nickname: nicknameDB,
             avatar: avatarDB
-          },
-          title: titleDB,
-          description: descriptionDB,
-          image: imageDB,
-          friended: friendedDB,
-          likes: likesDB
-        }
+          }  
       });
     } else {
       res.status(404).json({
@@ -92,7 +86,7 @@ export const getAllFriendToUserId = expressAsyncHandler(async (req, res) => {
   const { userid } = req.params;
 
   try {
-    const sqlMakefriend = `SELECT  F.id, F.userid, F.friend, U.username, U.nickname, U.avatar FROM friends as F INNER JOIN users as U ON  F.userid = '${userid}' AND F.userid=U.id`
+    const sqlMakefriend = `SELECT  F.id, F.userid, F.friend, U.username, U.nickname, U.avatar FROM friends as F INNER JOIN users as U  WHERE  F.userid = '${userid}' AND F.userid=U.id`
     const friend = await db.query(sqlMakefriend);
     console.log(friend);
     if (friend) {
