@@ -757,9 +757,23 @@ const userSignin = useSelector((state) => state.userSignin);
 
 const { userInfo } = userSignin;
 
+//funcion para visualizar la imagen previamente
+const [previewSource, setPreviewSource] = useState('');
+const previewFile = (file) =>{
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = () =>{
+    setPreviewSource(reader.result)
+  }
+}
+
 // upload images local
 const uploadFileHandler = async (e) => {
-const file = e.target.files[0];
+    const file = e.target.files[0];
+
+    //previsualiza la imagen
+    previewFile(file);
+
 
     const bodyFormData = new FormData();
     bodyFormData.append('imagenPosts', file);
@@ -780,6 +794,8 @@ const file = e.target.files[0];
 
 };
 
+//imput para cargar la imagen
+
     <label htmlFor="imagen">Imagen:</label>
     <input
       id="imagen"
@@ -789,6 +805,18 @@ const file = e.target.files[0];
       onChange={(e) => setImagen(e.target.value)}
     ></input>
 
+// para poder previsualizar la imagen antes de guardar
+
+    {previewSource && (
+      <img src={previewSource} alt="chosen" style={{width: '10rem', height: '10rem'}}></img>
+    )}
+
+
+// manejo de errores al subir la imagen
+
+    {errorUpload && (
+      <div>{errorUpload}</div>
+    )}
 Respuesta exitosa (200 OK)
 
 https://api-ingamer.herokuapp.com/uploads/posts/1646405965253.jpg

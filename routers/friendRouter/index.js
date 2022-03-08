@@ -18,7 +18,7 @@ const friendRouter = Router();
 // Friend Friends router
 friendRouter.post('/',isAuth, createFriend);
 
-// get Friends router
+// get Friends from user router
 friendRouter.get('/friendToUserid/:id',isAuth, getAllFriendToUserId);
 
 

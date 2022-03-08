@@ -54,7 +54,9 @@ Content-Type: application/json
   "username": "update prueba",
   "email": "updateprueba@gmail.com",
   "password": "938472829",
-  "nickname": " updateprueba"
+  "nickname": " updateprueba",
+   "avatar": "https://picsum.photos/id/1/200/300",
+  "backgroundImage": null
 }
 
 

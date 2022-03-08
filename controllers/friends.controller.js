@@ -22,6 +22,7 @@ export const createFriend = expressAsyncHandler(async (req, res) => {
       });
     }
 
+    
     const sqlMakefriend_into = `INSERT INTO friends ( userid, friend, username, nickname, avatar) VALUES ( '${userid}', '${friend}', '${username}', '${nickname}','${avatar}')`;
     await db.query(sqlMakefriend_into);
 
