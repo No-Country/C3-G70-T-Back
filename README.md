@@ -822,3 +822,232 @@ Respuesta exitosa (200 OK)
 https://api-ingamer.herokuapp.com/uploads/posts/1646405965253.jpg
 
 esta url es la que se envia en el campo de image en las publicaciones para guardarla en base date
+
+
+
+
+#FRIENDS ENDPOINT
+
+para utilizar este endpoint se necesita enviar un objeto contenido con los datos requeridos por la base de datos:
+
+userid: string
+friend: string
+
+#peticion POST
+
+api-ingamer.herokuapp.com/api/friends
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/friends";
+
+let data = {
+"userid": 3,
+"friend": 2
+}
+
+fetch(url, {
+method: 'POST',
+body: JSON.stringify(data),
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+{
+ok: true,
+msg: "Friend created"
+}
+
+
+
+
+
+
+#FRIENDS/:ID ENDPOINT
+
+para utilizar este endpoint se necesita enviar id de el friend en el parametro
+
+id: Numbrer
+
+#peticion POST
+
+api-ingamer.herokuapp.com/api/friends/:id
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/friends/2";
+
+fetch(url, {
+method: 'POST',
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+{
+  "id": 2,
+  "userid": 3,
+  "friendID": 2,
+  "username": "updateImagen",
+  "nickname": " conimagen",
+  "avatar": "https://i.pravatar.cc/300"
+}
+
+
+
+
+
+#FRIENDS/friendToUserid/:userid ENDPOINT
+
+para utilizar este endpoint se necesita enviar userid de el usuario logueado en el parametro
+
+userid: Numbrer
+
+#peticion POST
+
+api-ingamer.herokuapp.com/api/friends/friendToUserid/:userid
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/friends/friendToUserid/3";
+
+fetch(url, {
+method: 'POST',
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+[
+  {
+    "id": 2,
+    "userid": 3,
+    "friendID": 2,
+    "username": "updateImagen",
+    "nickname": " conimagen",
+    "avatar": "https://i.pravatar.cc/300"
+  },
+  {
+    "id": 6,
+    "userid": 3,
+    "friendID": 8,
+    "username": "updateImagen",
+    "nickname": " conimagen",
+    "avatar": "https://i.pravatar.cc/300"
+  }
+]
+
+
+
+#FRIENDS/delete/:id ENDPOINT
+
+para utilizar este endpoint se necesita enviar id de friend en el parametro
+
+id: Numbrer
+
+#peticion POST
+
+api-ingamer.herokuapp.com/api/friends/delete/:id
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/friends/delete/3";
+
+fetch(url, {
+method: 'POST',
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+[
+  {
+    "id": 2,
+    "userid": 3,
+    "friendID": 2,
+    "username": "updateImagen",
+    "nickname": " conimagen",
+    "avatar": "https://i.pravatar.cc/300"
+  },
+  {
+    "id": 6,
+    "userid": 3,
+    "friendID": 8,
+    "username": "updateImagen",
+    "nickname": " conimagen",
+    "avatar": "https://i.pravatar.cc/300"
+  }
+]
+
+
+
+/recomendaciones crear un hook o redux para el estado de friend 
+/crear un componente friend que sea un boton para seguir y dejar de seguir a los usuarios, aqui un breve ejemplo de como se podria implementar
+
+  const followfriend = () => {
+    //ToDo hook o redux para enviar los seguidos a la base de datos
+  }
+
+  const friends = () => {
+    //ToDo hook o redux para traer (get) los amigos seguidos por id
+  }
+
+import React, { useState } from "react";
+import useFriend from "hooks/useFriend";
+
+
+
+export default function FollowFriend({ id }) {
+  const { followfriend, friends } = useFriend();
+
+
+// se compara el friend traido de la base de datos con el que se selecciono para verificar si se sigue o no en el momento
+
+  const isFollowed = friends.some((friendId) => friendsId === id);
+
+//click en el boton de seguir para agregar el amigo a la base de datos
+  const handleClick = () => {
+    followfriend({ id });
+  };
+
+  
+  // implementar estado que verifique si esta seguido o no el usuario
+  const [label, emoji] = isFollowed
+    ? ["Stop following", "❌"]
+    : ["follow", "❤️"];
+
+
+//renderisar boton de seguir
+  return (
+
+    <>
+      <button onClick={handleClick}>
+        <span aria-label={label} role="img">
+          {emoji}
+        </span>
+      </button>
+    </>
+
+  );
+}

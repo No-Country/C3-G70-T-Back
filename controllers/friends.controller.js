@@ -7,29 +7,29 @@ import db from '../mysqlConnection/mysqlConnection.js';
 //create friend 
 export const createFriend = expressAsyncHandler(async (req, res) => {
 
-  const { userid, friend, username, nickname, avatar } = req.body;
+  const { userid, friendID } = req.body;
 
   try {
 
     //check if the user already exists
-    const sqlMakeUser_select = `SELECT * FROM friends WHERE userid = '${userid}' && friend = '${friend}'`;
-    let user = await db.query(sqlMakeUser_select);
-    console.log(user);
-    if (user.length > 0) {
+    const sqlMakeUser_select = `SELECT * FROM friends WHERE userid = '${userid}' && friendID = '${friendID}'`;
+    const friend = await db.query(sqlMakeUser_select);
+    console.log(friend);
+    if (friend.length > 0) {
       return res.status(400).json({
         ok: false,
-        msg:  `${username} already you friend` 
+        msg:  `friend already exist` 
       });
     }
 
 
-    const sqlMakefriend_into = `INSERT INTO friends ( userid, friend, username, nickname, avatar) VALUES ( '${userid}', '${friend}', '${username}', '${nickname}','${avatar}')`;
+    const sqlMakefriend_into = `INSERT INTO friends ( userid, friendID ) VALUES ( '${userid}', '${friendID}')`;
     await db.query(sqlMakefriend_into);
 
     // status code 201  if all goes well, return ok: true
     res.status(201).json({
       ok: true,
-      msg: "friend created"
+      msg: "Friend created"
     });
 
   } catch (error) {
@@ -48,23 +48,12 @@ export const getFriendToId = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
 
   try {
-    const sqlMakefriend = `SELECT  F.id, F.userid, F.friend, U.username, U.nickname, U.avatar FROM friends as F INNER JOIN users as U ON  F.id = '${id}'`
+    const sqlMakefriend = `SELECT  F.id, F.userid, F.friendID, U.username, U.nickname, U.avatar FROM friends as F INNER JOIN users as U WHERE  F.id = '${id}' &&  F.userid=U.id`
     const friend = await db.query(sqlMakefriend);
     console.log(friend[0]);
     if (friend[0]) {
 
-      const { id: idDB, userid: useridDB, friend: friendDB, username: usernameDB, nickname: nicknameDB, avatar: avatarDB } = friend[0];
-
-      res.status(200).json({
-          id: idDB,
-          userid: useridDB,
-          friend: friendDB,
-          user: {
-            username: usernameDB,
-            nickname: nicknameDB,
-            avatar: avatarDB
-          }  
-      });
+      res.status(200).json(friend[0]);
     } else {
       res.status(404).json({
         ok: false,
@@ -86,7 +75,7 @@ export const getAllFriendToUserId = expressAsyncHandler(async (req, res) => {
   const { userid } = req.params;
 
   try {
-    const sqlMakefriend = `SELECT  F.id, F.userid, F.friend, U.username, U.nickname, U.avatar FROM friends as F INNER JOIN users as U  WHERE  F.userid = '${userid}' AND F.userid=U.id`
+    const sqlMakefriend = `SELECT  F.id, F.userid, F.friendID, U.username, U.nickname, U.avatar FROM friends as F INNER JOIN users as U  WHERE  F.userid = '${userid}' && F.userid=U.id`
     const friend = await db.query(sqlMakefriend);
     console.log(friend);
     if (friend) {
