@@ -2,6 +2,12 @@ import expressAsyncHandler from 'express-async-handler';
 import bcrypt from "bcryptjs";
 import db from '../mysqlConnection/mysqlConnection.js';
 import { generateToken } from '../util/util.js';
+import { OAuth2Client } from 'google-auth-library'
+
+const clientIDAuthGoogle = ""
+
+const client = new OAuth2Client(clientIDAuthGoogle);
+
 
 //using expressAsyncHandler to get better the async
 
@@ -11,7 +17,7 @@ export const register = expressAsyncHandler(async (req, res) => {
 
   try {
     //check if the user already exists
-    const sqlMakeUser_select = `SELECT * FROM users WHERE email = '${email}' || username = '${username}'`;
+    const sqlMakeUser_select = `SELECT * FROM users WHERE email = '${email}' || nickname = '${nickname}'`;
     let user = await db.query(sqlMakeUser_select);
     console.log(user);
     if (user.length > 0) {
@@ -26,7 +32,7 @@ export const register = expressAsyncHandler(async (req, res) => {
     const salt = bcrypt.genSaltSync();
     const passwd = bcrypt.hashSync(password, salt);
 
-    const sqlMakeUser_into = `INSERT INTO users ( username,password, email, nickname) VALUES ( '${username}',  '${passwd}', '${email}','${nickname}')`;
+    const sqlMakeUser_into = `INSERT INTO users ( username, password, email, nickname) VALUES ( '${username}',  '${passwd}', '${email}','${nickname}')`;
     user = await db.query(sqlMakeUser_into);
 
     // status code 201  if all goes well, return ok: true
@@ -46,6 +52,8 @@ export const register = expressAsyncHandler(async (req, res) => {
 
 
 });
+
+
 
 
 //login
@@ -95,7 +103,77 @@ export const login = expressAsyncHandler(async (req, res) => {
 
 
 
+//login with google
+export const googleLogin = expressAsyncHandler(async (req, res) => {
+  const { idToken } = req.body;
+  try {
+    client.verifyIdToken({ idToken, audience: clientIDAuthGoogle }).then(response => {
+      const { email_verified, name, email } = response.payload
 
+      if (email_verified) {
+        //check if the user already exists
+        const sqlMakeUser_select = `SELECT * FROM users WHERE email = '${email}'`;
+        const user = db.query(sqlMakeUser_select);
+
+        console.log(user);
+
+        if (user.length > 0) {
+
+
+          const { id: idDB, username: usernameDB, email: emailDB } = user[0];
+
+          const token = generateToken(user[0])
+
+          res.json({
+            ok: true,
+            id: idDB,
+            username: usernameDB,
+            email: emailDB,
+            token
+          });
+        }
+
+      } else {
+        let password = email + Math.random();
+
+        //using bcrypt to encrypt the password
+        const salt = bcrypt.genSaltSync();
+        const passwd = bcrypt.hashSync(password, salt);
+
+
+        const sqlMakeUser_into = `INSERT INTO users ( username, password, email ) VALUES ( '${name}',  '${passwd}', '${email}')`;
+        db.query(sqlMakeUser_into);
+
+        const sqlMakeUser_select = `SELECT * FROM users WHERE email = '${email}'`;
+        const user = db.query(sqlMakeUser_select);
+
+        console.log(user);
+
+        if (user.length > 0) {
+
+
+          const { id: idDB, username: usernameDB, email: emailDB } = user[0];
+
+          const token = generateToken(user[0])
+
+          res.json({
+            ok: true,
+            id: idDB,
+            username: usernameDB,
+            email: emailDB,
+            token
+          });
+        }
+      }
+    })
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      msg: "An error has arisen in the process, please review"
+    });
+  }
+});
 
 
 
@@ -126,26 +204,26 @@ export const getUserToId = expressAsyncHandler(async (req, res) => {
     const sqlMakeUser = `SELECT * FROM users WHERE id = '${id}'`
     const user = await db.query(sqlMakeUser);
     console.log(user[0]);
-    if(user[0]){
-      
-      const { id: idDB, username: usernameDB, email: emailDB, nickname: nicknameDB, avatar: avatarDB,backgroundImage: backgroundImageDB } = user[0];
-      
+    if (user[0]) {
+
+      const { id: idDB, username: usernameDB, email: emailDB, nickname: nicknameDB, avatar: avatarDB, backgroundImage: backgroundImageDB } = user[0];
+
       res.status(200).json({
-      ok: true,
-      id: idDB,
-      username: usernameDB,
-      emial: emailDB,
-      nickname: nicknameDB,
-      avatar: avatarDB,
-      backgroundImage: backgroundImageDB
-    });
-  }else{
-    res.status(404).json({
-      ok: false,
-      msg: "User not found"
-    });
-  }
-    
+        ok: true,
+        id: idDB,
+        username: usernameDB,
+        emial: emailDB,
+        nickname: nicknameDB,
+        avatar: avatarDB,
+        backgroundImage: backgroundImageDB
+      });
+    } else {
+      res.status(404).json({
+        ok: false,
+        msg: "User not found"
+      });
+    }
+
 
   } catch (error) {
     console.log(error);
@@ -161,7 +239,7 @@ export const getUserToId = expressAsyncHandler(async (req, res) => {
 //update profile
 export const updateUser = expressAsyncHandler(async (req, res) => {
   // data from require body
-  const { id, username, password, email, nickname, avatar,backgroundImage } = req.body;
+  const { id, username, password, email, nickname, avatar, backgroundImage } = req.body;
 
   try {
 
@@ -170,7 +248,7 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
     const user = await db.query(sqlMakeUser);
 
     // data from mysql DB
-    const { username: usernameDB, password: passwordDB, email: emailDB, nickname: nicknameDB, avatar: avatarDB,backgroundImage: backgroundImageDB } = user[0];
+    const { username: usernameDB, password: passwordDB, email: emailDB, nickname: nicknameDB, avatar: avatarDB, backgroundImage: backgroundImageDB } = user[0];
 
     let newPassword = null
     if (user[0]) {
@@ -184,7 +262,7 @@ export const updateUser = expressAsyncHandler(async (req, res) => {
         nickname: nickname || nicknameDB,
         password: newPassword || passwordDB,
         avatar: avatar || avatarDB,
-        backgroundImage: backgroundImage || backgroundImageDB 
+        backgroundImage: backgroundImage || backgroundImageDB
       }
       await db.query('UPDATE users set ? WHERE id = ?', [updatedUsertoDB, id]);
       res.status(201).json({

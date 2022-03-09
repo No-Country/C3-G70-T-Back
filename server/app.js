@@ -14,10 +14,9 @@ import userRouter from '../routers/userRouter/index.js';
 import postRouter from '../routers/postRouter/index.js';
 import uploadRouter from '../routers/uploadRouter/index.js';
 import commentRouter from '../routers/commentRouter/index.js';
-import friendRouter from '../routers/friendRouter/index.js';
+import followerRouter from '../routers/followerRouter/index.js';
 
-// 3306
-
+//dotenv
 config();
 
 //initializations
@@ -29,10 +28,6 @@ app.use(cors());
 
 app.use(_json());
 app.use(_urlencoded({extended: false})); 
-
-
-//MySQL Connection
-
 
 //Middlewares
 app.use(morgan('dev'));
@@ -49,8 +44,8 @@ app.use('/api/posts', postRouter);
 //comments
 app.use('/api/comments', commentRouter);
 
-//friends
-app.use('/api/friends', friendRouter);
+//followers
+app.use('/api/followers', followerRouter);
 
 //emails
 // app.use('/api/emails', emailRouter);

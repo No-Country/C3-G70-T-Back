@@ -31,8 +31,9 @@ export const createPost = expressAsyncHandler(async (req, res) => {
 
 //get posts
 export const getPosts = expressAsyncHandler(async (req, res) => {
+  
   try {
-    const sqlMakePosts = `SELECT  P.id, P.userid, U.username, U.avatar, P.title, P.description, P.image, P.posted, P.likes FROM posts as P INNER JOIN users as U ON P.userid=U.id`
+    const sqlMakePosts = `SELECT  P.id, P.userid, U.username, U.avatar, P.title, P.description, P.image, P.posted, P.likes FROM posts as P INNER JOIN users as U WHERE P.userid=U.id`
     const posts = await db.query(sqlMakePosts);
 
     console.log(posts);
@@ -60,7 +61,7 @@ export const getPostToId = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
 
   try {
-    const sqlMakePost = `SELECT  P.id, P.userid, U.username, U.avatar, P.title, P.description, P.image, P.posted, P.likes FROM posts as P INNER JOIN users as U ON  P.id = '${id}'`
+    const sqlMakePost = `SELECT  P.id, P.userid, U.username, U.avatar, P.title, P.description, P.image, P.posted, P.likes FROM posts as P INNER JOIN users as U WHERE  P.id = '${id}'`
     const post = await db.query(sqlMakePost);
     console.log(post[0]);
     if (post[0]) {
@@ -101,7 +102,7 @@ export const getAllPostToUserId = expressAsyncHandler(async (req, res) => {
   const { userid } = req.params;
 
   try {
-    const sqlMakePost = `SELECT  P.id, P.userid, U.username, U.avatar, P.title, P.description, P.image, P.posted, P.likes FROM posts as P INNER JOIN users as U ON  P.userid = '${userid}' AND P.userid=U.id`
+    const sqlMakePost = `SELECT  P.id, P.userid, U.username, U.avatar, P.title, P.description, P.image, P.posted, P.likes FROM posts as P INNER JOIN users as U WHERE  P.userid = '${userid}' && P.userid=U.id`
     const post = await db.query(sqlMakePost);
     console.log(post);
     if (post) {

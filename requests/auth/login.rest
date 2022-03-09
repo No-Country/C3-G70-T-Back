@@ -22,10 +22,10 @@ POST http://localhost:8000/api/users/register
 Content-Type: application/json
 
 {
-  "username": "prueba",
-  "email": "prueba@gmail.com",
+  "username": "prueba4",
+  "email": "prueba@gmail.com4",
   "password": "123456789",
-  "nickname": "prueba"
+  "nickname": "prueba4"
 }
 
 
