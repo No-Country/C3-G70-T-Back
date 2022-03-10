@@ -61,7 +61,7 @@ export const getPostToId = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
 
   try {
-    const sqlMakePost = `SELECT  P.id, P.userid, U.username, U.avatar, P.title, P.description, P.image, P.posted, P.likes FROM posts as P INNER JOIN users as U WHERE  P.id = '${id}'`
+    const sqlMakePost = `SELECT  P.id, P.userid, U.username, U.avatar, P.title, P.description, P.image, P.posted, P.likes FROM posts as P INNER JOIN users as U WHERE  P.id = '${id}' && P.userid=U.id`
     const post = await db.query(sqlMakePost);
     console.log(post[0]);
     if (post[0]) {
