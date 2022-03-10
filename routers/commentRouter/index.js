@@ -21,7 +21,7 @@ const CommentRouter = Router();
 CommentRouter.post('/',isAuth, createComment);
 
 // get Comments router
-CommentRouter.get('/',isAuth, getComments);
+CommentRouter.get('/commentToPosts/:postid',isAuth, getComments);
 
 
 // get Comment/id router

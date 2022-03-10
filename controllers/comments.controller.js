@@ -29,10 +29,13 @@ export const createComment = expressAsyncHandler(async (req, res) => {
 
 });
 
-//get comments
+//get all comments to posts
 export const getComments = expressAsyncHandler(async (req, res) => {
+
+  const { postid } = req.params;
+
   try {
-    const sqlMakecomments = `SELECT  C.id, C.postid, C.userid, U.username, U.avatar, C.comment, C.posted, C.likes FROM comments as C INNER JOIN users as U INNER JOIN posts as P ON C.postid=P.id`
+    const sqlMakecomments = `SELECT  C.id, C.postid, C.userid, U.username, U.avatar, C.comment, C.posted, C.likes FROM comments as C INNER JOIN users as U WHERE C.postid ='${postid}' && C.userid=U.id`
     const comments = await db.query(sqlMakecomments);
 
     console.log(comments);
@@ -55,30 +58,20 @@ export const getComments = expressAsyncHandler(async (req, res) => {
   }
 })
 
+
+
 //get comment to id
 export const getCommentToId = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
 
   try {
-    const sqlMakecomment = `SELECT  C.id, C.postid, C.userid, U.username, U.avatar, C.comment, C.posted, C.likes FROM comments as C INNER JOIN users as U ON  C.id = '${id}'`
+    const sqlMakecomment = `SELECT  C.id, C.postid, C.userid, U.username, U.avatar, C.comment, C.posted, C.likes FROM comments as C INNER JOIN users as U WHERE  C.id = '${id}' && C.userid=U.id`
     const comment = await db.query(sqlMakecomment);
     console.log(comment[0]);
     if (comment[0]) {
 
-      const { id: idDB, postid: postidDB, userid: useridDB, username: usernameDB, avatar: avatarDB, comment: commentDB, posted: postedDB, likes: likesDB } = comment[0];
 
-      res.status(200).json({
-        id: idDB,
-        postid: postidDB,
-        user: {
-          userid: useridDB,
-          username: usernameDB,
-          avatar: avatarDB
-        },
-        comment: commentDB, 
-        posted: postedDB,
-        likes: likesDB
-      });
+      res.status(200).json(comment[0]);
     } else {
       res.status(404).json({
         ok: false,
@@ -113,7 +106,7 @@ export const editComment = expressAsyncHandler(async (req, res) => {
 
 
     // data from require body
-    const { comment: commentReq  } = req.body;
+    const { comment: commentReq } = req.body;
 
 
     if (comment[0]) {

@@ -824,6 +824,86 @@ https://api-ingamer.herokuapp.com/uploads/posts/1646405965253.jpg
 esta url es la que se envia en el campo de image en las publicaciones para guardarla en base date
 
 
+#comments ENDPOINT
+
+para utilizar este endpoint se necesita enviar un objeto contenido con los datos requeridos por la base de datos:
+
+postid:  string, es el id de la publicacion a la que se esta comentando
+userid: string,  es el id del usuario logueado
+comment: string, es lo que el usuario comenta en la publicaion
+
+
+
+
+#peticion POST
+
+api-ingamer.herokuapp.com/api/comments
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/comments";
+
+let data = {
+  "postid": 10,
+  "userid": 3
+  "comment": "que genial"
+}
+
+fetch(url, {
+method: 'POST',
+body: JSON.stringify(data),
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+{
+ok: true,
+msg: "comment created"
+}
+
+
+#comments/:ID ENDPOINT
+
+para utilizar este endpoint se necesita enviar id de el comentario en el parametro
+
+id: Numbrer
+
+#peticion POST
+
+api-ingamer.herokuapp.com/api/comments/:id
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/comments/4";
+
+fetch(url, {
+method: 'POST',
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+{
+  "id": 2,
+  "userid": 3,
+  "followerID": 2,
+  "username": "updateImagen",
+  "nickname": " conimagen",
+  "avatar": "https://i.pravatar.cc/300"
+}
+
+
 
 
 #followers ENDPOINT

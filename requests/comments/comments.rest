@@ -8,7 +8,7 @@ Authorization: `Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InBydWViYSI
 
 
 {
-    "postid":2,
+    "postid":10,
     "userid": 3,
     "comment": "que genial"
 }
@@ -18,7 +18,7 @@ Authorization: `Bearer "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InBydWViYSI
 
 
 
-GET http://localhost:8000/api/comments
+GET http://localhost:8000/api/comments/commentToPosts/10
 
 
 ### post to id GET http://localhost:8000/api/comments Content-Type: application/json
