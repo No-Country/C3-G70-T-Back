@@ -1,5 +1,40 @@
+# InGamers API
+
+---
+Permite porveer servicios necesarios para el funcionamiento de la app web InGamers
+
+---
+## Tecnoligias 
+
+-[Nodejs](https://nodejs.org/)
+-[Express](https://expressjs.com/)
+-[MySQL](https://www.mysql.com/)
+-[Jsonwebtoken](https://jwt.io/)
+-[Jest](https://jestjs.io/)
+-[Supertet](https://www.npmjs.com/package/supertest)
+
+---
+
+## Roles
+
+-Carlos García (Team Leader)
+-Cristian Palomeque (Backend)
+-Vladimir Sanchez Astoray (UX/UI)
+-Alejandro Pedroza (Frontend)
+-Mauricio Romero (Frontend)
+
+---
+## Como correr el proyecto
+
+Se debe tener instalado Node.js. Una vez clonado o copiado el proyecto en tu equipo y ubicado en la carpeta del mismo, deberás ejecutar los siguiente comando:
+
+npm install
+npm start o npm run server
+
+---
 # Documentacion API rest InGamer
 
+---
 ## ENDPOINTS
 
 ## USERS ENDPOINT
