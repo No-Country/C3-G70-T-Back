@@ -95,12 +95,12 @@ export const getAllfollowersToUserId = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//get all followeds to user
+//get all following to user
 export const getAllfollowingToUserId = expressAsyncHandler(async (req, res) => {
   const { userid } = req.params;
 
   try {
-    const sqlMakefollower = `SELECT  F.id, F.userid, F.followerID, U.username, U.nickname, U.avatar FROM followers as F INNER JOIN users as U  WHERE  F.userid = '${userid}' && F.userid=U.id`
+    const sqlMakefollower = `SELECT  F.id, F.userid, F.followerID, U.username, U.nickname, U.avatar FROM followers as F INNER JOIN users as U  WHERE  F.userid = '${userid}' && F.followerID=U.id`
     const follower = await db.query(sqlMakefollower);
     console.log(follower);
     if (follower) {
