@@ -590,7 +590,7 @@ ok: true,
 msg: "Post created"
 }
 
-#USERS/DELETE/ID ENDPOINT
+#POSTS/DELETE/ID ENDPOINT
 
 para utilizar este endpoint se necesita especificar en el id en el end point
 
@@ -868,13 +868,73 @@ msg: "comment created"
 }
 
 
+#comments/commentToPosts/:postid ENDPOINT
+
+para utilizar este endpoint se necesita enviar id de el comentario en el parametro
+
+id: Numbrer
+
+#peticion GET
+
+api-ingamer.herokuapp.com/api/comments/:id
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/comments/commentToPosts/10";
+
+fetch(url, {
+method: 'GET',
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+[
+    {
+        "id": 4,
+        "postid": 10,
+        "userid": 3,
+        "username": "updateImagen",
+        "avatar": "https://i.pravatar.cc/300",
+        "comment": "que genial",
+        "posted": "2022-03-10T07:58:42.000Z",
+        "likes": null
+    },
+    {
+        "id": 5,
+        "postid": 10,
+        "userid": 3,
+        "username": "updateImagen",
+        "avatar": "https://i.pravatar.cc/300",
+        "comment": "la estoy viendo",
+        "posted": "2022-03-10T08:02:56.000Z",
+        "likes": null
+    },
+    {
+        "id": 8,
+        "postid": 10,
+        "userid": 4,
+        "username": "prueba3",
+        "avatar": null,
+        "comment": "te vuelvo a comentar",
+        "posted": "2022-03-10T08:23:53.000Z",
+        "likes": null
+    }
+]
+
+
 #comments/:ID ENDPOINT
 
 para utilizar este endpoint se necesita enviar id de el comentario en el parametro
 
 id: Numbrer
 
-#peticion POST
+#peticion GET
 
 api-ingamer.herokuapp.com/api/comments/:id
 
@@ -883,7 +943,7 @@ ejemplo
 let url = "api-ingamer.herokuapp.com/api/comments/4";
 
 fetch(url, {
-method: 'POST',
+method: 'GET',
 headers:{
 'Content-Type': 'application/json',
 Authorization: `Bearer ${token}`
@@ -895,15 +955,119 @@ Authorization: `Bearer ${token}`
 Respuesta exitosa (201 OK)
 
 {
-  "id": 2,
-  "userid": 3,
-  "followerID": 2,
-  "username": "updateImagen",
-  "nickname": " conimagen",
-  "avatar": "https://i.pravatar.cc/300"
+    id: 8,
+    postid: 10,
+    userid: 4,
+    username: 'prueba3',
+    avatar: null,
+    comment: 'te vuelvo a comentar',
+    posted: 2022-03-10T08:23:53.000Z,
+    likes: 45
 }
 
 
+#commentsedit/:id ENDPOINT
+
+para utilizar este endpoint se necesita tener en cuenta el id del comentario  y  enviar un objeto contenido con los datos requeridos por la base de datos:
+
+comment: string, es lo que el usuario comenta en la publicaion
+
+#peticion PUT
+
+api-ingamer.herokuapp.com/api/comments/edit/:id
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/comments/edit/2";
+
+let data = {
+  "comment": "superrr genial"
+}
+
+fetch(url, {
+method: 'PUT',
+body: JSON.stringify(data),
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+{
+ok: true,
+msg: "comment updated"
+}
+
+#comments/likes/:id ENDPOINT
+
+para utilizar este endpoint se necesita tener en cuenta el id del comentario  y  enviar un objeto contenido con los datos requeridos por la base de datos:
+
+comment: string, es lo que el usuario comenta en la publicaion
+
+#peticion PUT
+
+api-ingamer.herokuapp.com/api/comments/likes/:id
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/comments/likes/2";
+
+let data = {
+  "likes": 47
+}
+
+fetch(url, {
+method: 'PUT',
+body: JSON.stringify(data),
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+{
+ok: true,
+msg: "likes comment updated"
+}
+
+#comments/delete/:id ENDPOINT
+
+para utilizar este endpoint se necesita enviar id de follower en el parametro
+
+id: Numbrer
+
+#peticion DETELE
+
+api-ingamer.herokuapp.com/api/comments/delete/:id
+
+ejemplo
+
+let url = "api-ingamer.herokuapp.com/api/comments/delete/2";
+
+fetch(url, {
+method: 'DETELE',
+headers:{
+'Content-Type': 'application/json',
+Authorization: `Bearer ${token}`
+}
+}).then(res => res.json())
+.catch(error => console.error('Error:', error))
+.then(response => console.log('Success:', response));
+
+Respuesta exitosa (201 OK)
+
+{
+  ok: true,
+  msg: "comment removed successfully"
+}
 
 
 #followers ENDPOINT
@@ -958,7 +1122,7 @@ para utilizar este endpoint se necesita enviar id de el follower en el parametro
 
 id: Numbrer
 
-#peticion POST
+#peticion GET
 
 api-ingamer.herokuapp.com/api/followers/:id
 
@@ -967,7 +1131,7 @@ ejemplo
 let url = "api-ingamer.herokuapp.com/api/followers/2";
 
 fetch(url, {
-method: 'POST',
+method: 'GET',
 headers:{
 'Content-Type': 'application/json',
 Authorization: `Bearer ${token}`
@@ -995,11 +1159,11 @@ Respuesta exitosa (201 OK)
 
 para utilizar este endpoint se necesita enviar userid de el usuario logueado en el parametro
 
-devuelve todos los usuarios seguidos
+devuelve todos los usuarios que siguen al usuario logueado
 
 userid: Numbrer
 
-#peticion POST
+#peticion GET
 
 api-ingamer.herokuapp.com/api/followers/followersToUserid/:userid
 
@@ -1008,7 +1172,7 @@ ejemplo
 let url = "api-ingamer.herokuapp.com/api/followers/followersToUserid/3";
 
 fetch(url, {
-method: 'POST',
+method: 'GET',
 headers:{
 'Content-Type': 'application/json',
 Authorization: `Bearer ${token}`
@@ -1047,16 +1211,16 @@ devuelve todos los usuarios seguidos
 
 userid: Numbrer
 
-#peticion POST
+#peticion GET
 
 api-ingamer.herokuapp.com/api/followers/followingToUserid/:userid
 
 ejemplo
 
-let url = "api-ingamer.herokuapp.com/api/followers/followingToUserid/3";
+let url = "api-ingamer.herokuapp.com/api/followers/followingToUserid/2";
 
 fetch(url, {
-method: 'POST',
+method: 'GET',
 headers:{
 'Content-Type': 'application/json',
 Authorization: `Bearer ${token}`
@@ -1093,7 +1257,7 @@ para utilizar este endpoint se necesita enviar id de follower en el parametro
 
 id: Numbrer
 
-#peticion POST
+#peticion DETELE
 
 api-ingamer.herokuapp.com/api/followers/delete/:id
 
@@ -1102,7 +1266,7 @@ ejemplo
 let url = "api-ingamer.herokuapp.com/api/followers/delete/3";
 
 fetch(url, {
-method: 'POST',
+method: 'DETELE',
 headers:{
 'Content-Type': 'application/json',
 Authorization: `Bearer ${token}`
@@ -1113,25 +1277,10 @@ Authorization: `Bearer ${token}`
 
 Respuesta exitosa (201 OK)
 
-[
-  {
-    "id": 2,
-    "userid": 3,
-    "followerID": 2,
-    "username": "updateImagen",
-    "nickname": " conimagen",
-    "avatar": "https://i.pravatar.cc/300"
-  },
-  {
-    "id": 6,
-    "userid": 3,
-    "followerID": 8,
-    "username": "updateImagen",
-    "nickname": " conimagen",
-    "avatar": "https://i.pravatar.cc/300"
-  }
-]
-
+{
+  ok: true,
+  msg: "follower removed successfully"
+}
 
 
 /recomendaciones crear un hook o redux para el estado de follower 

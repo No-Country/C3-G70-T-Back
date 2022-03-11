@@ -36,7 +36,7 @@ GET http://localhost:8000/api/comments/usercomments/3
 
 
 
-### edit user put http://localhost:8000/api/users/profile Content-Type: application/json
+### edit user put http://localhost:8000/api/comments/edit/:id Content-Type: application/json
 
 PUT http://localhost:8000/api/comments/edit/2
 Content-Type: application/json
@@ -46,7 +46,7 @@ Content-Type: application/json
 
 }
 
-### post  DELETE http://localhost:8000/api/users/delete/:id 
+### post  DELETE http://localhost:8000/api/comments/delete/:id 
 
 
 
