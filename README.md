@@ -8,7 +8,7 @@ API users devuelve un array de objetos con todos los datos de cada usuario
 
 ## URL de Users
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/users
 
@@ -60,7 +60,7 @@ Apodo del usuario "nickprueba"
 
 devuelve un objetos con todos los datos del usuario
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/users/:id
 
@@ -87,7 +87,7 @@ email: string
 password: string
 nickname: string
 
-## peticion POST
+### peticion POST
 
 api-ingamer.herokuapp.com/api/users/register
 
@@ -140,7 +140,7 @@ para utilizar este endpoint se necesita enviar un objeto contenido con los datos
 email: string
 password: string
 
-## peticion POST
+### peticion POST
 
 api-ingamer.herokuapp.com/api/users/login
 
@@ -198,7 +198,7 @@ nickname: string
 
 y adicionalmente se necesita un header de autorizacion con el token del usuario logueado
 
-## peticion PUT
+### peticion PUT
 
 api-ingamer.herokuapp.com/api/users/profile
 
@@ -264,7 +264,7 @@ nickname: string
 
 necesita un header de autorizacion con el token del usuario logueado
 
-## peticion PUT
+### peticion PUT
 
 api-ingamer.herokuapp.com/api/users/edit/id
 
@@ -317,7 +317,7 @@ para utilizar este endpoint se necesita especificar en el id en el end point
 
 necesita un header de autorizacion con el token del usuario logueado
 
-## peticion PUT
+### peticion PUT
 
 api-ingamer.herokuapp.com/api/users/delete/id
 
@@ -363,7 +363,7 @@ necesita un header de autorizacion con el token del usuario logueado
 
 ## URL de Posts
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/posts
 
@@ -437,7 +437,7 @@ devuelve un objetos con todos los datos del posts
 
 necesita un header de autorizacion con el token del usuario logueado
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/posts/:id
 
@@ -477,7 +477,7 @@ Respuesta exitosa (200 OK)
 
 devuelve un objetos con todos los datos del posts por usuario
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/posts/userPosts/:id
 
@@ -518,7 +518,7 @@ description: string
 image: string
 likes: number
 
-## peticion POST
+### peticion POST
 
 api-ingamer.herokuapp.com/api/posts
 
@@ -559,7 +559,7 @@ para utilizar este endpoint se necesita especificar en el id en el end point y e
 title: string
 description: string
 
-## peticion POST
+### peticion POST
 
 api-ingamer.herokuapp.com/api/posts/edit/:id
 
@@ -596,7 +596,7 @@ para utilizar este endpoint se necesita especificar en el id en el end point
 
 necesita un header de autorizacion con el token del usuario logueado
 
-## peticion PUT
+### peticion PUT
 
 api-ingamer.herokuapp.com/api/posts/delete/id
 
@@ -632,7 +632,7 @@ necesita un header de autorizacion con el token del usuario logueado
 
 ## UPLOADS/AVATAR ENDPOINT
 
-## peticion POST
+### peticion POST
 
 api-ingamer.herokuapp.com/api/uploads/avatar
 
@@ -687,7 +687,7 @@ esta url es la que se envia en el campo de avatar para guardarla en la base de d
 
 ## UPLOADS/BACKGROUNDUMGE ENDPOINT
 
-## peticion POST
+### peticion POST
 
 api-ingamer.herokuapp.com/api/uploads/backgroundImage
 
@@ -744,7 +744,7 @@ esta url es la que se envia en el campo de backgroundImage para guardarla en bas
 
 ## UPLOADS/POSTS ENDPOINT
 
-## peticion POST
+### peticion POST
 
 api-ingamer.herokuapp.com/api/uploads/posts
 
@@ -835,7 +835,7 @@ comment: string, es lo que el usuario comenta en la publicaion
 
 
 
-## peticion POST
+### peticion POST
 
 api-ingamer.herokuapp.com/api/comments
 
@@ -874,7 +874,7 @@ para utilizar este endpoint se necesita enviar id de el comentario en el paramet
 
 id: Numbrer
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/comments/:id
 
@@ -934,7 +934,7 @@ para utilizar este endpoint se necesita enviar id de el comentario en el paramet
 
 id: Numbrer
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/comments/:id
 
@@ -972,7 +972,7 @@ para utilizar este endpoint se necesita tener en cuenta el id del comentario  y 
 
 comment: string, es lo que el usuario comenta en la publicaion
 
-## peticion PUT
+### peticion PUT
 
 api-ingamer.herokuapp.com/api/comments/edit/:id
 
@@ -1008,7 +1008,7 @@ para utilizar este endpoint se necesita tener en cuenta el id del comentario  y 
 
 comment: string, es lo que el usuario comenta en la publicaion
 
-## peticion PUT
+### peticion PUT
 
 api-ingamer.herokuapp.com/api/comments/likes/:id
 
@@ -1044,7 +1044,7 @@ para utilizar este endpoint se necesita enviar id de follower en el parametro
 
 id: Numbrer
 
-## peticion DETELE
+### peticion DETELE
 
 api-ingamer.herokuapp.com/api/comments/delete/:id
 
@@ -1080,7 +1080,7 @@ followerID: string, es el id del usuario que se va seguir
 
 
 
-## peticion POST
+### peticion POST
 
 api-ingamer.herokuapp.com/api/followers
 
@@ -1122,7 +1122,7 @@ para utilizar este endpoint se necesita enviar id de el follower en el parametro
 
 id: Numbrer
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/followers/:id
 
@@ -1163,7 +1163,7 @@ devuelve todos los usuarios que siguen al usuario logueado
 
 userid: Numbrer
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/followers/followersToUserid/:userid
 
@@ -1211,7 +1211,7 @@ devuelve todos los usuarios seguidos
 
 userid: Numbrer
 
-## peticion GET
+### peticion GET
 
 api-ingamer.herokuapp.com/api/followers/followingToUserid/:userid
 
@@ -1257,7 +1257,7 @@ para utilizar este endpoint se necesita enviar id de follower en el parametro
 
 id: Numbrer
 
-## peticion DETELE
+### peticion DETELE
 
 api-ingamer.herokuapp.com/api/followers/delete/:id
 
