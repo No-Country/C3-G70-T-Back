@@ -6,22 +6,22 @@ Permite porveer servicios necesarios para el funcionamiento de la app web InGame
 ---
 ## Tecnoligias 
 
--[Nodejs](https://nodejs.org/)
--[Express](https://expressjs.com/)
--[MySQL](https://www.mysql.com/)
--[Jsonwebtoken](https://jwt.io/)
--[Jest](https://jestjs.io/)
--[Supertet](https://www.npmjs.com/package/supertest)
+- [Nodejs](https://nodejs.org/)
+- [Express](https://expressjs.com/)
+- [MySQL](https://www.mysql.com/)
+- [Jsonwebtoken](https://jwt.io/)
+- [Jest](https://jestjs.io/)
+- [Supertet](https://www.npmjs.com/package/supertest)
 
 ---
 
 ## Roles
 
--Carlos García (Team Leader)
--Cristian Palomeque (Backend)
--Vladimir Sanchez Astoray (UX/UI)
--Alejandro Pedroza (Frontend)
--Mauricio Romero (Frontend)
+- Carlos García (Team Leader)
+- Cristian Palomeque (Backend)
+- Vladimir Sanchez Astoray (UX/UI)
+- Alejandro Pedroza (Frontend)
+- Mauricio Romero (Frontend)
 
 ---
 ## Como correr el proyecto
