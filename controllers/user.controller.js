@@ -3,10 +3,10 @@ import bcrypt from "bcryptjs";
 import db from '../mysqlConnection/mysqlConnection.js';
 import { generateToken } from '../util/util.js';
 import { OAuth2Client } from 'google-auth-library'
+import { client_secret_google } from '../client_secret_google.js';
 
-const clientIDAuthGoogle = ""
 
-const client = new OAuth2Client(clientIDAuthGoogle);
+const client = new OAuth2Client(client_secret_google.client_id);
 
 
 //using expressAsyncHandler to get better the async
@@ -105,51 +105,71 @@ export const login = expressAsyncHandler(async (req, res) => {
 
 //login with google
 export const googleLogin = expressAsyncHandler(async (req, res) => {
-  const { idToken } = req.body;
+  const { tokenId } = req.body;
+
+
   try {
-    client.verifyIdToken({ idToken, audience: clientIDAuthGoogle }).then(response => {
-      const { email_verified, name, email } = response.payload
+    const response = await client.verifyIdToken({ idToken: tokenId, audience: client_secret_google.client_id })
+    const { email_verified, name, email } = response.payload
 
-      if (email_verified) {
-        //check if the user already exists
+    console.log(email_verified, name, email);
+
+    console.log(response.payload);
+
+    if (email_verified) {
+      //check if the user already exists
+
+      const getUserDB = async () => {
+
         const sqlMakeUser_select = `SELECT * FROM users WHERE email = '${email}'`;
-        const user = db.query(sqlMakeUser_select);
+        return await db.query(sqlMakeUser_select);
+      }
 
-        console.log(user);
+      const user = await getUserDB();
 
-        if (user.length > 0) {
+      console.log(user[0]);
+
+      if (user.length > 0) {
 
 
-          const { id: idDB, username: usernameDB, email: emailDB } = user[0];
+        const { id: idDB, username: usernameDB, email: emailDB } = user[0];
 
-          const token = generateToken(user[0])
+        const token = generateToken(user[0])
 
-          res.json({
-            ok: true,
-            id: idDB,
-            username: usernameDB,
-            email: emailDB,
-            token
-          });
-        }
+        res.json({
+          ok: true,
+          id: idDB,
+          username: usernameDB,
+          email: emailDB,
+          token
+        });
 
       } else {
         let password = email + Math.random();
+        console.log(password);
 
         //using bcrypt to encrypt the password
         const salt = bcrypt.genSaltSync();
         const passwd = bcrypt.hashSync(password, salt);
 
+        const intoUserDB = async () => {
 
-        const sqlMakeUser_into = `INSERT INTO users ( username, password, email ) VALUES ( '${name}',  '${passwd}', '${email}')`;
-        db.query(sqlMakeUser_into);
+          const sqlMakeUser_into = `INSERT INTO users ( username, password, email ) VALUES ( '${name}',  '${passwd}', '${email}')`;
+          await db.query(sqlMakeUser_into);
+        }
 
-        const sqlMakeUser_select = `SELECT * FROM users WHERE email = '${email}'`;
-        const user = db.query(sqlMakeUser_select);
+        await intoUserDB()
 
-        console.log(user);
+        const getUserDB = async () => {
+
+          const sqlMakeUser_select = `SELECT * FROM users WHERE email = '${email}'`;
+          return await db.query(sqlMakeUser_select);
+        }
+
+        const user = await getUserDB();
 
         if (user.length > 0) {
+
 
 
           const { id: idDB, username: usernameDB, email: emailDB } = user[0];
@@ -165,7 +185,7 @@ export const googleLogin = expressAsyncHandler(async (req, res) => {
           });
         }
       }
-    })
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({

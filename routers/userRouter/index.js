@@ -8,7 +8,8 @@ import {
     getUserToId, 
     deleteUser, 
     editUser, 
-    updateUser 
+    updateUser, 
+    googleLogin
 } from '../../controllers/user.controller.js';
 import { isAuth } from '../../util/util.js';
 
@@ -21,6 +22,11 @@ userRouter.post('/register', register );
 
 // login
 userRouter.post('/login', login );
+
+// google Login
+userRouter.post('/googleLogin', googleLogin );
+
+
 
 // get users router
 userRouter.get('/', getUsers );
