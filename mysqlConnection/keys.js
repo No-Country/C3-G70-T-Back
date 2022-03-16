@@ -1,27 +1,14 @@
-import { config } from 'dotenv';
-config();
-
-const {
-    HOST_DB_R,
-    USER_DB_R,
-    PASSWORD_DB_R,
-    NAME_DB_R,
-    HOST_DB,
-    USER_DB,
-    PASSWORD_DB,
-    NAME_DB
-} = process.env
 
 export const databaseProduction = {
-    host: HOST_DB_R,
-    user: USER_DB_R,
-    password: PASSWORD_DB_R,
-    database: NAME_DB_R
+    host: "bivim428kmjpmk1c4kx6-mysql.services.clever-cloud.com",
+    user: "uoopnyznm3gia5cx",
+    password: "qfrV4CVOM9hL9A9C4y8s",
+    database: "bivim428kmjpmk1c4kx6"
 };
 
 export const databaseTest = {
-    host: HOST_DB,
-    user: USER_DB,
-    password: PASSWORD_DB,
-    database: NAME_DB
+    host: "localhost",
+    user: "root",
+    password: "InGamerG70",
+    database: "ingamer_db"
 };

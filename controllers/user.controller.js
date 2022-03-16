@@ -62,6 +62,7 @@ export const login = expressAsyncHandler(async (req, res) => {
   try {
     const sqlMakeUser = `SELECT * FROM users WHERE email = '${email}'`;
     let user = await db.query(sqlMakeUser);
+    console.log(user);
 
     if (user?.length === 0) {
       return res.status(400).json({
