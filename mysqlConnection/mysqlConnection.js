@@ -3,6 +3,9 @@ import { promisify } from 'util';
 
 import { databaseProduction, databaseTest } from './keys.js';
 
+import { config } from 'dotenv';
+config();
+
 const { NODE_ENV } = process.env
 
 const database =  NODE_ENV === 'test'
