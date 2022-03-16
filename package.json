@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node --experimental-modules backend/server",
-    "server": "nodemon --experimental-modules server/index.js",
+    "start": "cross-env NODE_ENV=production node --experimental-modules backend/server",
+    "server": "cross-env NODE_ENV=depelopment nodemon --experimental-modules server/index.js",
     "dev": "npm server",
-    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest --verbose --detectOpenHandles ",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules && jest --verbose --detectOpenHandles ",
     "test:watch": "npm run test -- --watchAll"
   },
   "dependencies": {
