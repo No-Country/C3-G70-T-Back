@@ -13,7 +13,7 @@ const {
 } = process.env
 
 export const client_secret_google = {
-    client_id: "6572826555-ber153tq20k3j3ur882qq5v2l111a602.apps.googleusercontent.com",
+    client_id: CLIEN_ID,
     project_id: PROJECT_ID,
     auth_uri: AUTH_URI,
     token_uri: TOKEN_URI,
